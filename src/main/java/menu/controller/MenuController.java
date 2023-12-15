@@ -22,10 +22,10 @@ public class MenuController {
 
     public void run() {
         outputView.printMenuRecommendStart();
-        List<String> coachNames = inputView.inputCoachNames();
+        List<String> coachNames = retryInputCoachNames();
         List<Coach> coaches = new ArrayList<>();
         for (String coachName : coachNames) {
-            List<String> canNotEatMenus = inputView.inputCanNotEat(coachName);
+            List<String> canNotEatMenus = retryInputCanNotEat(coachName);
             coaches.add(new Coach(coachName, canNotEatMenus));
         }
         recommend(coaches);
@@ -37,6 +37,26 @@ public class MenuController {
         for (Day day : Day.values()) {
             for (Coach coach : coaches) {
                 menuRecommendRepository.createRecommend(day, coach);
+            }
+        }
+    }
+
+    private List<String> retryInputCoachNames() {
+        while (true) {
+            try {
+                return inputView.inputCoachNames();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private List<String> retryInputCanNotEat(String coachName) {
+        while (true) {
+            try {
+                return inputView.inputCanNotEat(coachName);
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
             }
         }
     }
