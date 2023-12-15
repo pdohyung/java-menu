@@ -1,20 +1,20 @@
 package menu.domain;
 
 import menu.domain.enums.Category;
-import menu.domain.enums.Day;
+import menu.domain.enums.Days;
 
 public class MenuRecommend {
-    private final Day day;
+    private final Days day;
     private final Category category;
     private final String dish;
 
-    public MenuRecommend(Day day, Category category, String dish) {
+    public MenuRecommend(Days day, Category category, String dish) {
         this.day = day;
         this.category = category;
         this.dish = dish;
     }
 
-    public Day getDay() {
+    public Days getDay() {
         return day;
     }
 

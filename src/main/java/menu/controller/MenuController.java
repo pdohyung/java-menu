@@ -1,8 +1,8 @@
 package menu.controller;
 
 import menu.domain.Coach;
-import menu.domain.enums.Day;
-import menu.repository.MenuRecommendRepository;
+import menu.domain.enums.Days;
+import menu.domain.MenuRecommendResult;
 import menu.view.InputView;
 import menu.view.OutputView;
 
@@ -12,12 +12,12 @@ import java.util.List;
 public class MenuController {
     private final InputView inputView;
     private final OutputView outputView;
-    private final MenuRecommendRepository menuRecommendRepository;
+    private final MenuRecommendResult menuRecommendResult;
 
     public MenuController() {
         this.inputView = new InputView();
         this.outputView = new OutputView();
-        this.menuRecommendRepository = new MenuRecommendRepository();
+        this.menuRecommendResult = new MenuRecommendResult();
     }
 
     public void run() {
@@ -29,14 +29,14 @@ public class MenuController {
             coaches.add(new Coach(coachName, canNotEatMenus));
         }
         recommend(coaches);
-        outputView.printMenuRecommendResult(menuRecommendRepository.getMenuRecommendResult());
+        outputView.printMenuRecommendResult(menuRecommendResult.getMenuRecommendResult());
         outputView.printMenuRecommendEnd();
     }
 
     public void recommend(List<Coach> coaches) {
-        for (Day day : Day.values()) {
+        for (Days day : Days.values()) {
             for (Coach coach : coaches) {
-                menuRecommendRepository.createRecommend(day, coach);
+                menuRecommendResult.createRecommend(day, coach);
             }
         }
     }

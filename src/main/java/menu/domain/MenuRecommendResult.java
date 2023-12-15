@@ -1,18 +1,15 @@
-package menu.repository;
+package menu.domain;
 
-import menu.domain.Coach;
-import menu.domain.MenuRecommend;
-import menu.domain.ShuffleMachine;
 import menu.domain.enums.Category;
-import menu.domain.enums.Day;
+import menu.domain.enums.Days;
 import menu.domain.enums.Menu;
 
 import java.util.*;
 
-public class MenuRecommendRepository {
+public class MenuRecommendResult {
     private final Map<Coach, List<MenuRecommend>> menuRecommendResult;
 
-    public MenuRecommendRepository() {
+    public MenuRecommendResult() {
         this.menuRecommendResult = new LinkedHashMap<>();
     }
 
@@ -20,14 +17,14 @@ public class MenuRecommendRepository {
         return menuRecommendResult;
     }
 
-    public void createRecommend(Day day, Coach coach) {
+    public void createRecommend(Days day, Coach coach) {
         MenuRecommend menuRecommend = generateValidMenuRecommend(day, coach);
         List<MenuRecommend> menuRecommends = menuRecommendResult.getOrDefault(coach, new ArrayList<>());
         menuRecommends.add(menuRecommend);
         menuRecommendResult.put(coach, menuRecommends);
     }
 
-    private MenuRecommend generateValidMenuRecommend(Day day, Coach coach) {
+    private MenuRecommend generateValidMenuRecommend(Days day, Coach coach) {
         ShuffleMachine shuffleMachine = new ShuffleMachine();
         String shuffleMenu;
         Category category;

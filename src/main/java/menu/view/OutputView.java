@@ -2,7 +2,7 @@ package menu.view;
 
 import menu.domain.Coach;
 import menu.domain.MenuRecommend;
-import menu.domain.enums.Day;
+import menu.domain.enums.Days;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,20 +30,20 @@ public class OutputView {
     }
 
     public void printMenuRecommendResult(Map<Coach, List<MenuRecommend>> menuRecommendResult) {
-        Day[] days = Day.values();
+        Days[] days = Days.values();
         System.out.println(PRINT_MENU_RECOMMEND_RESULT_START_MESSAGE);
         printHeader(days);
         printCategories(menuRecommendResult, days);
         printRecommendations(menuRecommendResult, days);
     }
 
-    private void printHeader(Day[] days) {
+    private void printHeader(Days[] days) {
         System.out.println("[ 구분 | " + Arrays.stream(days)
-                .map(Day::getName)
+                .map(Days::getName)
                 .collect(Collectors.joining(" | ")) + " ]");
     }
 
-    private void printCategories(Map<Coach, List<MenuRecommend>> menuRecommendResult, Day[] days) {
+    private void printCategories(Map<Coach, List<MenuRecommend>> menuRecommendResult, Days[] days) {
         System.out.print("[ 카테고리 | ");
         for (int i = 0; i < days.length; i++) {
             printCategoryForDay(menuRecommendResult, days[i]);
@@ -54,7 +54,7 @@ public class OutputView {
         System.out.println(" ]");
     }
 
-    private void printCategoryForDay(Map<Coach, List<MenuRecommend>> menuRecommendResult, Day day) {
+    private void printCategoryForDay(Map<Coach, List<MenuRecommend>> menuRecommendResult, Days day) {
         String category = menuRecommendResult.values().stream()
                 .flatMap(List::stream)
                 .filter(mr -> mr.getDay().equals(day))
@@ -64,7 +64,7 @@ public class OutputView {
         System.out.print(category);
     }
 
-    private void printRecommendations(Map<Coach, List<MenuRecommend>> menuRecommendResult, Day[] days) {
+    private void printRecommendations(Map<Coach, List<MenuRecommend>> menuRecommendResult, Days[] days) {
         for (Map.Entry<Coach, List<MenuRecommend>> entry : menuRecommendResult.entrySet()) {
             System.out.print("[ " + entry.getKey().getName() + " | ");
             for (int i = 0; i < days.length; i++) {
@@ -77,7 +77,7 @@ public class OutputView {
         }
     }
 
-    private void printDishForDay(List<MenuRecommend> menuRecommends, Day day) {
+    private void printDishForDay(List<MenuRecommend> menuRecommends, Days day) {
         String dish = menuRecommends.stream()
                 .filter(mr -> mr.getDay().equals(day))
                 .findFirst()
