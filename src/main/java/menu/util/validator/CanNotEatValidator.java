@@ -10,6 +10,7 @@ import static menu.util.ErrorMessage.*;
 public class CanNotEatValidator {
     public static List<String> validateInputCanNotEat(String input) {
         List<String> canNotEatMenus = splitInputCanNotEatByComma(input);
+        validateMenusNumber(canNotEatMenus);
         return canNotEatMenus;
     }
 
@@ -22,5 +23,12 @@ public class CanNotEatValidator {
         }
         return Arrays.stream(input.split(COMMA))
                 .collect(Collectors.toList());
+    }
+
+    private static void validateMenusNumber(List<String> canNotEatMenus) {
+        int menusNumber = canNotEatMenus.size();
+        if (menusNumber > CAN_NOT_EAT_MENUS_MAX_NUMBER) {
+            throw new IllegalArgumentException(INVALID_CAN_NOT_EAT_MESSAGE.getErrorMessage());
+        }
     }
 }
