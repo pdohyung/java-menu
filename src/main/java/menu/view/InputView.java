@@ -1,7 +1,7 @@
 package menu.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import menu.util.InputValidator;
+import menu.util.validator.CoachNamesValidator;
 
 import java.util.List;
 
@@ -10,6 +10,6 @@ public class InputView {
 
     public List<String> inputCoachNames() {
         System.out.println(INPUT_COACH_NAMES_MESSAGE);
-        return InputValidator.validateInputCoachNames(Console.readLine());
+        return CoachNamesValidator.validateInputCoachNames(Console.readLine());
     }
 }
