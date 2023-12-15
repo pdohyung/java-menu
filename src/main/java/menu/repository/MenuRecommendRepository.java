@@ -41,7 +41,11 @@ public class MenuRecommendRepository {
 
     private boolean isInvalidMenu(Coach coach, String menu, Category category) {
         return isExistMenuRecommend(coach) &&
-                (isMoreThanTwo(coach, category) || isDuplicateMenu(coach, menu));
+                (isCanNotEat(coach, menu) || isMoreThanTwo(coach, category) || isDuplicateMenu(coach, menu));
+    }
+
+    private boolean isCanNotEat(Coach coach, String menu) {
+        return coach.getCanNotEatMenus().contains(menu);
     }
 
     private boolean isExistMenuRecommend(Coach coach) {
